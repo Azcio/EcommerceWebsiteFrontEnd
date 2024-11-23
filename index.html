@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script
+      src="https://kit.fontawesome.com/3b2cc7cf4f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/products.js"></script>
+    <title>School Club Store</title>
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/stylesheet.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <img
+          class="logo"
+          v-on:click="showHome"
+          v-bind:src="siteLogo"
+          alt="WebLogo"
+        />
+        <h1 v-text="sitename"></h1>
+
+        <img
+          class="productIcon"
+          v-on:click="showProduct"
+          src="images/productIcon.png"
+        />
+        <button class="productList" v-on:click="showProduct">
+          Show Classes
+        </button>
+
+        <button
+          class="basketList"
+          v-on:click="showCheckout"
+          :disabled="EmptyCart"
+        >
+          {{basket}}
+          <span class="fa-solid fa-cart-shopping"></span>
+          basket
+        </button>
+      </header>
+
+      <main>
+        <div class="HomePage" v-if="showHomePage">
+          <h1>Welcome to the Creative Corner</h1>
+
+          <p>
+            At Creative Corner, we believe in nurturing young minds beyond the
+            classroom. Our after-school program offers a safe, engaging, and
+            enriching environment where children can explore their interests,
+            develop new skills, and make lasting friendships. With a diverse
+            range of activities, including arts and crafts, sports, homework
+            help, and STEM projects, we empower students to discover their
+            passions while fostering a love for learning. Join us in creating
+            memorable experiences that inspire growth, creativity, and teamwork!
+          </p>
+
+          <hr />
+
+          <p class="statistics">
+            <strong>8 in 10 students</strong> in math classes achieve grades
+            ranging from B to A*
+          </p>
+          <p class="statistics">
+            <strong>75% of students</strong> who participate in our after-school
+            tutoring program improve their grades by at least one letter grade
+          </p>
+          <p class="statistics">
+            <strong>90% of students</strong> involved in extracurricular
+            activities report feeling more confident in their academic abilities
+          </p>
+          <p class="statistics">
+            <strong>70% of students</strong> who join our study groups see a
+            significant increase in their overall grades
+          </p>
+          <p class="statistics">
+            <strong>85% of participants</strong>in our STEM club express
+            interest in pursuing science or technology-related fields
+          </p>
+          <p class="statistics">
+            <strong>95% of students</strong> who regularly attend homework help
+            sessions improve their understanding of challenging subjects
+          </p>
+          <p class="statistics">
+            <strong>80% of our students</strong> achieve at least a B grade in
+            their science classes after participating in our hands-on
+            experiments and activities
+          </p>
+        </div>
+
+        <div class="classHolder" v-if="showProductPage">
+          <div class="filterContainer">
+            <h3>filter</h3>
+
+            <div class="FilterOptions">
+              <label>
+                <input type="radio" v-model="filterCriteria" value="price" />
+                Price
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  v-model="filterCriteria"
+                  value="availability"
+                />
+                availability
+              </label>
+              <label>
+                <input type="radio" v-model="filterCriteria" value="subject" />
+                Subject
+              </label>
+              <label>
+                <input type="radio" v-model="filterCriteria" value="location" />
+                Location
+              </label>
+            </div>
+
+            <div class="filterOrder">
+              <label>
+                <input type="radio" v-model="sortOrder" value="ascending" />
+                Ascending
+              </label>
+              <label>
+                <input type="radio" v-model="sortOrder" value="descending" />
+                Descending
+              </label>
+            </div>
+          </div>
+
+          <div class="product-container">
+            <div v-for="products in filteredProducts">
+              <figure>
+                <img
+                  class="Icon"
+                  v-bind:src="products.Image"
+                  alt="product Image"
+                />
+                <h2 v-text="products.title"></h2>
+                <p v-text="products.description"></p>
+                <p>Price: {{products.price}}</p>
+                <p>Location: {{products.Location}}</p>
+
+                <input
+                  type="button"
+                  value="add to cart"
+                  v-on:click="addItemToTheCart(products)"
+                  v-if="CanBeAddedToCart(products)"
+                />
+
+                <button v-else disabled>add to cart</button>
+                <span v-if="itemsLeft(products) === 0">All Out!</span>
+                <span v-else-if="itemsLeft(products) < 5"
+                  >Only {{itemsLeft(products)}} left!</span
+                >
+                <span v-else>Buy Now!</span>
+
+                <div id="ratings">
+                  <span v-for="n in products.Rating">★</span>
+                  <span v-for="n in 5 - products.Rating">☆</span>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkoutPage" v-if="showCheckoutPage">
+          <h1 class="checkoutTitle">Welcome to Check out</h1>
+
+          <div class="userInfo">
+            <p>
+              <strong>Name: </strong>
+              <input type="text" v-model.trim="order.name" />
+            </p>
+            <p>
+              <strong>Surname: </strong>
+              <input type="text" v-model.trim="order.surname" />
+            </p>
+            <p>
+              <strong>Post Code: </strong>
+              <input type="text" v-model="order.zip" />
+            </p>
+            <p>
+              <strong>Phone Number:</strong>
+              <input type="number" v-model="order.number" />
+            </p>
+
+            <h2>Order Information</h2>
+            <p>
+              <strong>Name: {{order.name}}</strong>
+            </p>
+            <p>
+              <strong>Surname: {{order.surname}}</strong>
+            </p>
+            <p>
+              <strong>Post Code: {{order.zip}}</strong>
+            </p>
+            <p>
+              <strong>Phone Number: {{order.number}}</strong>
+            </p>
+
+            <button v-on:click="submitCheckoutForm" :disabled="!ValidForm">
+              Place Order
+            </button>
+          </div>
+
+          <div class="cartItems">
+            <div v-for="product in CheckoutItems">
+              <figure class="checkoutProducts">
+                <img
+                  class="CheckoutIcon"
+                  v-bind:src="product.Image"
+                  alt="product Image"
+                />
+                <h2 v-text="product.title"></h2>
+                <p v-text="product.description"></p>
+                <p>Price: {{ product.price }}</p>
+                <p>Location: {{ product.Location }}</p>
+                <p>Quantity: {{ cartCount(product.id) }}</p>
+
+                <button
+                  class="removeButton"
+                  v-on:click="removeItemFromCart(product.id)"
+                >
+                  Remove
+                </button>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="js/scriptsheet.js"></script>
+  </body>
+</html>

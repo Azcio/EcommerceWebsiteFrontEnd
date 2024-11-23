@@ -1,0 +1,203 @@
+body {
+  background-image: url(../images/background.jpg);
+  background-size: cover;
+  min-height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0;
+  font-size: 18px;
+  background-attachment: fixed;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  align-items: center;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+  color: white;
+  height: 100px;
+  z-index: 1000;
+}
+
+.logo {
+  height: 80px;
+  margin-left: 2%;
+  cursor: pointer;
+}
+
+h1 {
+  text-align: center;
+  margin: 0;
+  flex-grow: 1;
+  margin-left: 17%;
+}
+
+.productList {
+  background: none;
+  border: none;
+  margin-right: 5%;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+}
+
+.productIcon {
+  height: 80px;
+  cursor: pointer;
+}
+
+.basketList {
+  height: 50px;
+  margin-top: 0.5%;
+  margin-right: 4%;
+  border-radius: 20px;
+  width: 100px;
+}
+
+main {
+  padding-top: 10px;
+}
+
+.HomePage {
+  padding: 2%;
+  width: 80%;
+  margin-left: 8%;
+  margin-top: 200px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 20px;
+}
+
+.HomePage h1 {
+  margin-right: 10%;
+  padding-bottom: 2%;
+}
+
+.statistics {
+  margin-left: 5%;
+}
+
+/* Classes Page Styling */
+.classHolder {
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 20px;
+  padding-top: 7%;
+  padding-bottom: 1%;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+figure {
+  border-width: 10px;
+  margin-left: 2%;
+  border-style: ridge;
+  border-radius: 40px;
+  width: 500px;
+  height: 240px;
+  padding: 1%;
+  background-color: white;
+}
+
+.Icon {
+  height: 150px;
+  float: left;
+  padding: 2%;
+}
+
+h2 {
+  display: inline;
+  text-align: center;
+}
+
+#ratings {
+  margin-left: 7%;
+}
+
+/* Check Out Page Styling */
+.checkoutTitle {
+  margin-top: -4%;
+  margin-bottom: 4%;
+  margin-right: 7%;
+  white-space: nowrap;
+  text-align: center;
+  padding: 10px;
+}
+
+.CheckoutIcon {
+  height: 50px;
+  /* float: left; */
+}
+
+.userInfo {
+  width: 20%;
+  box-sizing: border-box;
+  float: left;
+  margin-right: 4%;
+}
+
+.cartItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 800px;
+  height: 400px;
+  margin-top: 2%;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  
+}
+
+.checkoutProducts {
+  color: black;
+  font-size: 18px;
+  height: 60px;
+  width: 580px;
+  border-radius: 0%;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Vertically align items */
+  justify-content: space-between; /* Add space between elements */
+  gap: 15px;
+}
+
+.removeButton {
+  margin-top: 10px;
+  background-color: #ff6666;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background-color: #ff3333;
+}
+
+.checkoutPage {
+  width: 80%;
+  height: 650px;
+  backdrop-filter: blur(10px);
+  padding: 4%;
+  margin: auto;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  color: white;
+  border-radius: 30px;
+  font-size: 20px;
+}

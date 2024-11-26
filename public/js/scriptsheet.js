@@ -82,7 +82,7 @@ var webstore = new Vue({
       };
 
       fetch(
-        "http://encreativecorner3-env.eba-bhagt3sw.eu-west-2.elasticbeanstalk.com/",
+        "https://encreativecorner3-env.eba-bhagt3sw.eu-west-2.elasticbeanstalk.com/",
         {
           method: "POST",
           headers: {

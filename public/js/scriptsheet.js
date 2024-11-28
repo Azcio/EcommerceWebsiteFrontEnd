@@ -19,8 +19,8 @@ var webstore = new Vue({
     sortOrder: [],
     lessons: [],
 
-    imagesBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com",
-    serverBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com",
+    imagesBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
+    serverBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
   },
   methods: {
     showHome: function () {
@@ -140,16 +140,16 @@ var webstore = new Vue({
       }
     },
 
-    async fetchLessons() {
-      try {
-        const response = await fetch(`${this.serverBaseURL}collections/products`);
-        const data = await response.json();
-        this.products = data;
-        console.log("Fetched lessons:", this.products);
-      } catch (error) {
-        console.error("Error fetching lessons from the Database:", error);
-      }
-    },
+  //   async fetchLessons() {
+  //     try {
+  //       const response = await fetch(`${this.serverBaseURL}collections/products`);
+  //       const data = await response.json();
+  //       this.products = data;
+  //       console.log("Fetched lessons:", this.products);
+  //     } catch (error) {
+  //       console.error("Error fetching lessons from the Database:", error);
+  //     }
+  //   },
   },
 
   computed: {
@@ -222,6 +222,6 @@ var webstore = new Vue({
     },
   },
   created() {
-    this.fetchLessons();
+    // this.fetchLessons();
   }
 });

@@ -47,9 +47,9 @@ var webstore = new Vue({
       }
     },
 
-    getImageURL(Imagepath) {
-      return 'https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/{imagePath}';
-    },
+    // getImageURL(Imagepath) {
+    //   return 'https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/{imagePath}';
+    // },
 
     addItemToTheCart: function (products) {
       this.cart.push(products.id);

@@ -118,22 +118,9 @@ var webstore = new Vue({
       }
     },
 
-//     fetchLessons: function () {
-//       fetch(
-// "http://erikcreativecorner.eu-west-2.elasticbeanstalk.com/")
-//         .then((response) => response.json())
-//         .then((data) => {
-//           console.log("Lessons fetched:", data);
-//           this.lessons = data;
-//         })
-//         .catch((error) =>
-//           console.error("Error fetching products from mongo:", error)
-//         );
-//     },
-
     async fetchLessons() {
       try {
-        const response = await fetch(`http://erikcreativecorner.eu-west-2.elasticbeanstalk.com/collections/products`);
+        const response = await fetch(`${this.serverBaseURL}/collections/products`);
         const data = await response.json();
         this.products = data;
         console.log("Fetched lessons:", this.products);
@@ -141,7 +128,6 @@ var webstore = new Vue({
         console.error("Error fetching lessons from the Database:", error);
       }
     },
-
   },
 
   computed: {

@@ -20,7 +20,7 @@
         <img
           class="logo"
           v-on:click="showHome"
-          v-bind:src="siteLogo"
+          v-bind:src="`${imagesBaseURL}images/${siteLogo}`"
           alt="WebLogo"
         />
         <h1 v-text="sitename"></h1>
@@ -137,7 +137,7 @@
               <figure>
                 <img
                   class="Icon"
-                  v-bind:src="products.Image"
+                  v-bind:src="`${imagesBaseURL}images/${product.Image}`"
                   alt="product Image"
                 />
                 <h2 v-text="products.title"></h2>

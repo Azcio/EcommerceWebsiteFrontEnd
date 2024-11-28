@@ -19,8 +19,8 @@ var webstore = new Vue({
     sortOrder: [],
     lessons: [],
 
-    imagesBaseURL: "https://ecommercewebsitebackend-up9a.onrender.com/",
-    serverBaseURL: "https://ecommercewebsitebackend-up9a.onrender.com/",
+    imagesBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
+    serverBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
   },
   methods: {
     showHome: function () {
@@ -86,7 +86,7 @@ var webstore = new Vue({
       };
 
       fetch(
-        "https://ecommercewebsitebackend-up9a.onrender.com/",
+        "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
         {
           method: "POST",
           headers: {
@@ -120,7 +120,7 @@ var webstore = new Vue({
 
     fetchLessons: function () {
       fetch(
-"https://ecommercewebsitebackend-up9a.onrender.com/"      )
+"http://erikcreativecorner.eu-west-2.elasticbeanstalk.com/")
         .then((response) => response.json())
         .then((data) => {
           console.log("Lessons fetched:", data);

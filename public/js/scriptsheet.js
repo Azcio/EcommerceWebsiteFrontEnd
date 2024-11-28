@@ -15,7 +15,6 @@ var webstore = new Vue({
       number: "",
     },
 
-    product: null,
     filterCriteria: [],
     sortOrder: [],
     lessons: [],
@@ -147,11 +146,11 @@ var webstore = new Vue({
         .then(response => response.json())
         .then(data => {
           // If the API returns an array, you can access the first product like this:
-          this.product = data[0]; // Assuming we're dealing with the first product
+          this.products = data[0]; // Assuming we're dealing with the first product
 
           // Check if the product and its Image property exist
-          if (this.product && this.product.Image) {
-            console.log("Product image:", this.product.Image);
+          if (this.products && this.products.Image) {
+            console.log("Product image:", this.products.Image);
           } else {
             console.log("Product or Image is undefined");
           }

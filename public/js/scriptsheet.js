@@ -18,6 +18,9 @@ var webstore = new Vue({
     filterCriteria: [],
     sortOrder: [],
     lessons: [],
+
+    imagesBaseURL: "https://ecommercewebsitebackend-up9a.onrender.com/",
+    serverBaseURL: "https://ecommercewebsitebackend-up9a.onrender.com/",
   },
   methods: {
     showHome: function () {

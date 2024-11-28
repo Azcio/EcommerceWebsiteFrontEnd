@@ -70,7 +70,7 @@ var webstore = new Vue({
       return products.Stock - this.cartCount(products.id);
     },
 
-    submitCheckoutForm() {
+    async submitCheckoutForm() {
       const orderData = {
         name: this.order.name.trim(),
         surname: this.order.surname.trim(),
@@ -85,30 +85,52 @@ var webstore = new Vue({
         })),
       };
 
-      fetch(
-        "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderData),
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to submit the order.");
+      try {
+        const response = await fetch(
+          `${this.serverBaseURL}/submit-order`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
           }
-          return response.json();
-        })
-        .then((data) => {
-          alert("Order submitted successfully!");
-          console.log("Order saved with ID:", data.insertedId);
-          // Reset form and cart
-          this.order = { name: "", surname: "", zip: "", number: "" };
-          this.cart = [];
-          this.showHome();
-        });
+        );
+        if (!response.ok) throw new Error("Failed to submit the order.");
+        const data = await response.json();
+        alert("Order submitted successfully!");
+        console.log("Order saved with ID:", data.insertedId);
+        this.order = { name: "", surname: "", zip: "", number: "" };
+        this.cart = [];
+        this.showHome();
+      } catch (error) {
+        console.error("Error submitting the order:", error);
+      }
+      
+      // fetch(
+      //   "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(orderData),
+      //   }
+      // )
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error("Failed to submit the order.");
+      //     }
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     alert("Order submitted successfully!");
+      //     console.log("Order saved with ID:", data.insertedId);
+      //     // Reset form and cart
+      //     this.order = { name: "", surname: "", zip: "", number: "" };
+      //     this.cart = [];
+      //     this.showHome();
+      //   });
     },
 
     removeItemFromCart: function (productId) {

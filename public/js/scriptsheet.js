@@ -19,8 +19,8 @@ var webstore = new Vue({
     sortOrder: [],
     lessons: [],
 
-    imagesBaseURL: "http://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
-    serverBaseURL: "http://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
+    imagesBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
+    serverBaseURL: "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
   },
   methods: {
     showHome: function () {
@@ -86,7 +86,7 @@ var webstore = new Vue({
       };
 
       fetch(
-        "http://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
+        "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
         {
           method: "POST",
           headers: {

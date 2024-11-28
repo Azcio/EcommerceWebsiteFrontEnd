@@ -2,7 +2,7 @@ var webstore = new Vue({
   el: "#app",
   data: {
     sitename: "Creative Corner",
-    siteLogo: "images/WebLogo.png",
+    siteLogo: "EcommerceWebsiteFrontEnd/images/WebLogo.png",
     showHomePage: true,
     showProductPage: false,
     showCheckoutPage: false,
@@ -14,7 +14,7 @@ var webstore = new Vue({
       zip: "",
       number: "",
     },
-
+    product: null,
     filterCriteria: [],
     sortOrder: [],
     lessons: [],
@@ -140,35 +140,37 @@ var webstore = new Vue({
       }
     },
 
+    // fetchLessons() {
+    //   // Fetch the product data
+    //   fetch('https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/collections/products')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       // If the API returns an array, you can access the first product like this:
+    //       this.product = data[0]; // Assuming we're dealing with the first product
+
+    //       // Check if the product and its Image property exist
+    //       if (this.product && this.product.Image) {
+    //         console.log("Product image:", this.product.Image);
+    //       } else {
+    //         console.log("Product or Image is undefined");
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.error("Error fetching lessons from the Database:", error);
+    //     });
+    // }
+
     fetchLessons() {
-      // Fetch the product data
       fetch('https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/collections/products')
         .then(response => response.json())
         .then(data => {
-          // If the API returns an array, you can access the first product like this:
-          this.product = data[0]; // Assuming we're dealing with the first product
-
-          // Check if the product and its Image property exist
-          if (this.product && this.product.Image) {
-            console.log("Product image:", this.product.Image);
-          } else {
-            console.log("Product or Image is undefined");
-          }
+          this.product = data; // Assign fetched data to product
         })
         .catch(error => {
           console.error("Error fetching lessons from the Database:", error);
         });
-    }
-  //   async fetchLessons() {
-  //     try {
-  //       const response = await fetch(`${this.serverBaseURL}collections/products`);
-  //       const data = await response.json();
-  //       this.products = data;
-  //       console.log("Fetched lessons:", this.products);
-  //     } catch (error) {
-  //       console.error("Error fetching lessons from the Database:", error);
-  //     }
-  //   },
+    },
+
   },
 
   computed: {

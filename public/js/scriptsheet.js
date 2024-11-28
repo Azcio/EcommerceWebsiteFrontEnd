@@ -47,10 +47,6 @@ var webstore = new Vue({
       }
     },
 
-    // getImageURL(Imagepath) {
-    //   return 'https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/{imagePath}';
-    // },
-
     addItemToTheCart: function (products) {
       this.cart.push(products.id);
       console.log(this.cart);
@@ -144,16 +140,16 @@ var webstore = new Vue({
       }
     },
 
-  //   async fetchLessons() {
-  //     try {
-  //       const response = await fetch(`${this.serverBaseURL}collections/products`);
-  //       const data = await response.json();
-  //       this.products = data;
-  //       console.log("Fetched lessons:", this.products);
-  //     } catch (error) {
-  //       console.error("Error fetching lessons from the Database:", error);
-  //     }
-  //   },
+    async fetchLessons() {
+      try {
+        const response = await fetch(`${this.serverBaseURL}collections/products`);
+        const data = await response.json();
+        this.products = data;
+        console.log("Fetched lessons:", this.products);
+      } catch (error) {
+        console.error("Error fetching lessons from the Database:", error);
+      }
+    },
   },
 
   computed: {

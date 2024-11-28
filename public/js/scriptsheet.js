@@ -17,6 +17,7 @@ var webstore = new Vue({
 
     filterCriteria: [],
     sortOrder: [],
+    lessons: [],
   },
   methods: {
     showHome: function () {
@@ -82,7 +83,7 @@ var webstore = new Vue({
       };
 
       fetch(
-        "https://encreativecorner3-env.eba-bhagt3sw.eu-west-2.elasticbeanstalk.com/",
+        "https://ecommercewebsitebackend-up9a.onrender.com/",
         {
           method: "POST",
           headers: {
@@ -116,11 +117,11 @@ var webstore = new Vue({
 
     fetchLessons: function () {
       fetch(
-        "https://encreativecorner3-env.eba-bhagt3sw.eu-west-2.elasticbeanstalk.com/"
-      )
+"https://ecommercewebsitebackend-up9a.onrender.com/"      )
         .then((response) => response.json())
         .then((data) => {
           console.log("Lessons fetched:", data);
+          this.lessons = data;
         })
         .catch((error) =>
           console.error("Error fetching products from mongo:", error)

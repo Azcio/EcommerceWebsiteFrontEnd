@@ -106,7 +106,7 @@ var webstore = new Vue({
       } catch (error) {
         console.error("Error submitting the order:", error);
       }
-      
+
       // fetch(
       //   "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
       //   {
@@ -142,7 +142,7 @@ var webstore = new Vue({
 
     async fetchLessons() {
       try {
-        const response = await fetch(`${this.serverBaseURL}/collections/products`);
+        const response = await fetch(`${this.serverBaseURL}collections/products`);
         const data = await response.json();
         this.products = data;
         console.log("Fetched lessons:", this.products);

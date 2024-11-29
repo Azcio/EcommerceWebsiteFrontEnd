@@ -1,4 +1,4 @@
-const serverBaseURL = "https://ecommercewebsitebackend-119l.onrender.com";
+
 
 var webstore = new Vue({
   el: "#app",
@@ -17,6 +17,7 @@ var webstore = new Vue({
       number: "",
     },
     ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
+   serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
     filterCriteria: [],
     sortOrder: [],
     products: [],

@@ -151,6 +151,11 @@ var webstore = new Vue({
     },
 
     filteredProducts: function () {
+      if (!Array.isArray(this.products)) {
+        console.warn('Products is not an array:', this.products);
+        return [];
+      }
+      
       let sortedProducts = [...this.products];
 
       // Sort by selected

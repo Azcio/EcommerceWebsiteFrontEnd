@@ -16,7 +16,7 @@ var webstore = new Vue({
       zip: "",
       number: "",
     },
-
+    ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
     filterCriteria: [],
     sortOrder: [],
     products: [],
@@ -86,7 +86,7 @@ var webstore = new Vue({
 
       try {
         const response = await fetch(
-          `${this.serverBaseURL}/submit-order`,
+          `${serverBaseURL}/submit-order`,
           {
             method: "POST",
             headers: {
@@ -115,7 +115,8 @@ var webstore = new Vue({
     },
 
     fetchLessons() {
-      fetch(`${this.serverBaseURL}/collections/products`, {
+      console.log("Fetching from:", `${serverBaseURL}/collections/products`);
+      fetch(`${serverBaseURL}/collections/products`, {
         method: 'GET',
         credentials: 'include',  // Include credentials (cookies)
       })

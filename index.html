@@ -133,16 +133,16 @@
           </div>
 
           <div class="product-container">
-            <div v-for="products in filteredProducts">
+            <div v-for="product in filteredProducts">
               <figure>
                 <img
                   class="Icon"
-                  v-bind:src="`${serverBaseURL}/${products.Image}`" alt="product Image" 
+                  v-bind:src="`${serverBaseURL}/${product.image}`" alt="product Image" 
                 />
-                <h2 v-text="products.title"></h2>
-                <p v-text="products.description"></p>
-                <p>Price: {{products.price}}</p>
-                <p>Location: {{products.Location}}</p>
+                <h2 v-text="product.title"></h2>
+                <p v-text="product.description"></p>
+                <p>Price: {{product.price}}</p>
+                <p>Location: {{product.Location}}</p>
 
                 <input
                   type="button"
@@ -159,8 +159,8 @@
                 <span v-else>Buy Now!</span>
 
                 <div id="ratings">
-                  <span v-for="n in products.Rating">★</span>
-                  <span v-for="n in 5 - products.Rating">☆</span>
+                  <span v-for="n in product.Rating">★</span>
+                  <span v-for="n in 5 - product.Rating">☆</span>
                 </div>
               </figure>
             </div>

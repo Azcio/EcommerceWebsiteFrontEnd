@@ -53,7 +53,7 @@ var webstore = new Vue({
     },
 
     CanBeAddedToCart(products) {
-      return products.Stock > this.cartCount(products.id);
+      return products.stock > this.cartCount(products.id);
     },
 
     cartCount(id) {
@@ -67,7 +67,7 @@ var webstore = new Vue({
     },
 
     itemsLeft(products) {
-      return products.Stock - this.cartCount(products.id);
+      return products.stock - this.cartCount(products.id);
     },
 
     async submitCheckoutForm() {
@@ -116,8 +116,7 @@ var webstore = new Vue({
     },
 
     fetchLessons() {
-      console.log("Fetching from:", `${this.serverBaseURL}/collections/products`);
-      fetch(`${serverBaseURL}/collections/products`, {
+      fetch(`${this.serverBaseURL}/collections/products`, {
         method: 'GET',
         credentials: 'include',  // Include credentials (cookies)
       })

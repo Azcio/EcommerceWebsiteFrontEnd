@@ -149,61 +149,123 @@ var webstore = new Vue({
     CheckoutItems: function () {
       return this.products.filter((product) => this.cart.includes(product.id));
     },
-
+  
     filteredProducts: function () {
       if (!Array.isArray(this.products)) {
-        console.warn('Products is not an array:', this.products);
-        return [];
+          console.warn('Products is not an array:', this.products);
+          return []; // Ensure filteredProducts always returns an array.
       }
-      
-      let sortedProducts = [...this.products];
-
-      // Sort by selected
+  
+      let sortedProducts = [...this.products]; // Create a copy of products.
+  
+      // Sort by price
       if (this.filterCriteria.includes("price")) {
-        sortedProducts.sort((a, b) => {
-          if (this.sortOrder.includes("ascending")) {
-            return a.price - b.price;
-          } else if (this.sortOrder.includes("descending")) {
-            return b.price - a.price;
-          }
-          return 0;
-        });
-      } else if (this.filterCriteria.includes("availability")) {
-        sortedProducts.sort((a, b) => {
-          const spacesLeftA = this.itemsLeft(a);
-          const spacesLeftB = this.itemsLeft(b);
-
-          if (this.sortOrder.includes("ascending")) {
-            return spacesLeftA - spacesLeftB;
-          } else if (this.sortOrder.includes("descending")) {
-            return spacesLeftB - spacesLeftA;
-          }
-          return 0;
-        });
-
-        //function to sort subjects and location alphabetically
-      } else if (this.filterCriteria.includes("subject")) {
-        sortedProducts.sort((a, b) => {
-          if (this.sortOrder === "ascending")
-            return a.title.localeCompare(b.title);
-          if (this.sortOrder === "descending")
-            return b.title.localeCompare(a.title);
-          return 0;
-        });
-      } else if (this.filterCriteria.includes("location")) {
-        sortedProducts.sort((a, b) => {
-          if (this.sortOrder === "ascending")
-            return a.Location.localeCompare(b.Location);
-          if (this.sortOrder === "descending")
-            return b.Location.localeCompare(a.Location);
-          return 0;
-        });
+          sortedProducts.sort((a, b) => {
+              if (this.sortOrder.includes("ascending")) {
+                  return a.price - b.price;
+              } else if (this.sortOrder.includes("descending")) {
+                  return b.price - a.price;
+              }
+              return 0;
+          });
       }
-
+      // Sort by availability
+      else if (this.filterCriteria.includes("availability")) {
+          sortedProducts.sort((a, b) => {
+              const spacesLeftA = this.itemsLeft(a);
+              const spacesLeftB = this.itemsLeft(b);
+  
+              if (this.sortOrder.includes("ascending")) {
+                  return spacesLeftA - spacesLeftB;
+              } else if (this.sortOrder.includes("descending")) {
+                  return spacesLeftB - spacesLeftA;
+              }
+              return 0;
+          });
+      }
+      // Sort by subject alphabetically
+      else if (this.filterCriteria.includes("subject")) {
+          sortedProducts.sort((a, b) => {
+              if (this.sortOrder.includes("ascending")) {
+                  return a.title.localeCompare(b.title);
+              } else if (this.sortOrder.includes("descending")) {
+                  return b.title.localeCompare(a.title);
+              }
+              return 0;
+          });
+      }
+      // Sort by location alphabetically
+      else if (this.filterCriteria.includes("location")) {
+          sortedProducts.sort((a, b) => {
+              if (this.sortOrder.includes("ascending")) {
+                  return a.location.localeCompare(b.location);
+              } else if (this.sortOrder.includes("descending")) {
+                  return b.location.localeCompare(a.location);
+              }
+              return 0;
+          });
+      }
+  
+      // Default return if no specific filtering is applied
       return sortedProducts;
-    },
+  }
+  
+
+    // filteredProducts: function () {
+    //   if (!Array.isArray(this.products)) {
+    //     console.warn('Products is not an array:', this.products);
+    //     return [];
+    //   }
+
+    //   let sortedProducts = [...this.products];
+
+    //   // Sort by selected
+    //   if (this.filterCriteria.includes("price")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder.includes("ascending")) {
+    //         return a.price - b.price;
+    //       } else if (this.sortOrder.includes("descending")) {
+    //         return b.price - a.price;
+    //       }
+    //       return 0;
+    //     });
+    //   } else if (this.filterCriteria.includes("availability")) {
+    //     sortedProducts.sort((a, b) => {
+    //       const spacesLeftA = this.itemsLeft(a);
+    //       const spacesLeftB = this.itemsLeft(b);
+
+    //       if (this.sortOrder.includes("ascending")) {
+    //         return spacesLeftA - spacesLeftB;
+    //       } else if (this.sortOrder.includes("descending")) {
+    //         return spacesLeftB - spacesLeftA;
+    //       }
+    //       return 0;
+    //     });
+
+    //     //function to sort subjects and location alphabetically
+    //   } else if (this.filterCriteria.includes("subject")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder === "ascending")
+    //         return a.title.localeCompare(b.title);
+    //       if (this.sortOrder === "descending")
+    //         return b.title.localeCompare(a.title);
+    //       return 0;
+    //     });
+    //   } else if (this.filterCriteria.includes("location")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder === "ascending")
+    //         return a.Location.localeCompare(b.Location);
+    //       if (this.sortOrder === "descending")
+    //         return b.Location.localeCompare(a.Location);
+    //       return 0;
+    //     });
+    //   }
+
+    //   return sortedProducts;
+    // },
   },
   created() {
+    this.products = [];
     this.fetchLessons();
   },
 });

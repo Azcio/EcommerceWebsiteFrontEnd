@@ -53,27 +53,27 @@ console.log("Filtered Products:", this.filteredProducts);
     }
   },
   methods: {
-     async fetchLessons() {
-      try {
-        const response = await fetch(`${this.serverBaseURL}/collections/products`, {
-          method: "GET",
-          credentials: "include",
-        });
+    //  async fetchLessons() {
+    //   try {
+    //     const response = await fetch(`${this.serverBaseURL}/collections/products`, {
+    //       method: "GET",
+    //       credentials: "include",
+    //     });
 
-        const data = await response.json();
+    //     const data = await response.json();
 
-        if (Array.isArray(data)) {
-          this.products = data; // Assign fetched products to the data
-          console.log("Fetched products:", data);
-        } else {
-          console.warn("Invalid data format from server:", data);
-          this.products = []; // Set to empty array if response is invalid
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        this.products = []; // Fallback to empty array if error occurs
-      }
-    },
+    //     if (Array.isArray(data)) {
+    //       this.products = data; // Assign fetched products to the data
+    //       console.log("Fetched products:", data);
+    //     } else {
+    //       console.warn("Invalid data format from server:", data);
+    //       this.products = []; // Set to empty array if response is invalid
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching products:", error);
+    //     this.products = []; // Fallback to empty array if error occurs
+    //   }
+    // },
 
     showHome: function () {
       this.showHomePage = true;
@@ -99,26 +99,26 @@ console.log("Filtered Products:", this.filteredProducts);
       }
     },
 
-    // fetchLessons() {
-    //   fetch(`${this.serverBaseURL}/collections/products`, {
-    //     method: "GET",
-    //     credentials: "include",
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       // Ensure the data is in the expected format
-    //       if (Array.isArray(data)) {
-    //         this.products = data; 
-    //         console.log("Fetched products:", data);
-    //       } else {
-    //         console.warn("Invalid data format from server:", data);
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error fetching products:", error);
-    //       this.products = []; // Fallback to empty array in case of error
-    //     });
-    // },
+    fetchLessons() {
+      fetch(`${this.serverBaseURL}/collections/products`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Ensure the data is in the expected format
+          if (Array.isArray(data)) {
+            this.products = data; 
+            console.log("Fetched products:", data);
+          } else {
+            console.warn("Invalid data format from server:", data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+          this.products = []; // Fallback to empty array in case of error
+        });
+    },
 
     addItemToTheCart: function (products) {
       this.cart.push(products.id);
@@ -259,57 +259,5 @@ filteredProducts: function () {
       // return this.products.filter((product) => this.cart.includes(product.id));
       return this.products.filter(product => this.cart.includes(product.id)) || [];
     },
-
-    // filteredProducts: function () {
-    //   if (!Array.isArray(this.products)) {
-    //     return [];
-    //   }
-
-    //   let sortedProducts = [...this.products];
-
-    //   // Sort by selected
-    //   if (this.filterCriteria.includes("price")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder.includes("ascending")) {
-    //         return a.price - b.price;
-    //       } else if (this.sortOrder.includes("descending")) {
-    //         return b.price - a.price;
-    //       }
-    //       return 0;
-    //     });
-    //   } else if (this.filterCriteria.includes("availability")) {
-    //     sortedProducts.sort((a, b) => {
-    //       const spacesLeftA = this.itemsLeft(a);
-    //       const spacesLeftB = this.itemsLeft(b);
-
-    //       if (this.sortOrder.includes("ascending")) {
-    //         return spacesLeftA - spacesLeftB;
-    //       } else if (this.sortOrder.includes("descending")) {
-    //         return spacesLeftB - spacesLeftA;
-    //       }
-    //       return 0;
-    //     });
-
-    //     //function to sort subjects and location alphabetically
-    //   } else if (this.filterCriteria.includes("subject")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder === "ascending")
-    //         return a.title.localeCompare(b.title);
-    //       if (this.sortOrder === "descending")
-    //         return b.title.localeCompare(a.title);
-    //       return 0;
-    //     });
-    //   } else if (this.filterCriteria.includes("location")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder === "ascending")
-    //         return a.Location.localeCompare(b.Location);
-    //       if (this.sortOrder === "descending")
-    //         return b.Location.localeCompare(a.Location);
-    //       return 0;
-    //     });
-    //   }
-
-    //   return sortedProducts;
-    // },
   },
 });

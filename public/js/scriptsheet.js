@@ -17,7 +17,6 @@ var webstore = new Vue({
 
     filterCriteria: [],
     sortOrder: [],
-    lessons: [],
     products: [],
 
     imagesBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
@@ -107,31 +106,6 @@ var webstore = new Vue({
       } catch (error) {
         console.error("Error submitting the order:", error);
       }
-
-      // fetch(
-      //   "https://erikcreativecorner.eu-west-2.elasticbeanstalk.com/",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(orderData),
-      //   }
-      // )
-      //   .then((response) => {
-      //     if (!response.ok) {
-      //       throw new Error("Failed to submit the order.");
-      //     }
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     alert("Order submitted successfully!");
-      //     console.log("Order saved with ID:", data.insertedId);
-      //     // Reset form and cart
-      //     this.order = { name: "", surname: "", zip: "", number: "" };
-      //     this.cart = [];
-      //     this.showHome();
-      //   });
     },
 
     removeItemFromCart: function (productId) {
@@ -147,7 +121,9 @@ var webstore = new Vue({
         credentials: 'include',  // Include credentials (cookies)
       })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+          this.products = data; // Assign fetched data to the products array
+        })
         .catch(error => console.error('Error:', error));
     }
   },

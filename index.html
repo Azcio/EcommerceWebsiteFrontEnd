@@ -20,7 +20,7 @@
         <img
           class="logo"
           v-on:click="showHome"
-          
+          v-bind:src="`${imagesBaseURL}images/${product.image}`" alt="product Image"
           alt="WebLogo"
         />
         <h1 v-text="sitename"></h1>

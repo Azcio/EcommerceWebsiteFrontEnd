@@ -8,7 +8,6 @@
       src="https://kit.fontawesome.com/3b2cc7cf4f.js"
       crossorigin="anonymous"
     ></script>
-    <script src="public/js/products.js"></script>
     <title>School Club Store</title>
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
     <link rel="stylesheet" href="public/css/stylesheet.css" />
@@ -17,10 +16,11 @@
   <body>
     <div id="app">
       <header>
+        <!-- v-bind:src="https://ecommercewebsitebackend-119l.onrender.com/images/WebLogo.png" -->
         <img
           class="logo"
           v-on:click="showHome"
-          v-bind:src="`${serverBaseURL}/${siteLogo}`"
+          
           alt="WebLogo"
         />
         <h1 v-text="sitename"></h1>
@@ -133,7 +133,7 @@
           </div>
 
           <div class="product-container">
-            <div v-for="product in this.products">
+            <div v-for="product in filteredProducts">
               <figure>
                 <img
                   class="Icon"

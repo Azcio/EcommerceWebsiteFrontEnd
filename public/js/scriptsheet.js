@@ -1,5 +1,3 @@
-
-
 var webstore = new Vue({
   el: "#app",
   data: {
@@ -18,9 +16,23 @@ var webstore = new Vue({
     },
     ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
    serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
+  // serverBaseURL: "http://127.0.0.1:3000",
     filterCriteria: [],
     sortOrder: [],
     products: [],
+  },
+  created() {
+    this.products = [];
+    this.fetchLessons();
+    console.log("Products:", this.products);
+console.log("Filtered Products:", this.filteredProducts);
+  },
+
+  watch: {
+    // Watch for changes to the 'products' array
+    products(newProducts) {
+      console.log("Updated Products:", newProducts);
+    },
   },
   methods: {
     showHome: function () {
@@ -47,6 +59,47 @@ var webstore = new Vue({
       }
     },
 
+    // fetchLessons() {
+    //   fetch(`${this.serverBaseURL}/collections/products`, {
+    //     method: "GET",
+    //     credentials: "include",
+    //   })
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       // Ensure the data is in the expected format
+    //       if (Array.isArray(data)) {
+    //         this.products = data; 
+    //         console.log("Fetched products:", data);
+    //       } else {
+    //         console.warn("Invalid data format from server:", data);
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error fetching products:", error);
+    //       this.products = []; // Fallback to empty array in case of error
+    //     });
+    // },
+    async fetchLessons() {
+      try {
+        const response = await fetch(`${this.serverBaseURL}/collections/products`, {
+          method: "GET",
+          credentials: "include",
+        });
+  
+        const data = await response.json();
+  
+        if (Array.isArray(data)) {
+          this.products = data; 
+          console.log("Fetched products:", data);
+        } else {
+          console.warn("Invalid data format from server:", data);
+          this.products = []; // Set to empty array if response is invalid
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        this.products = []; // Fallback to empty array if error occurs
+      }
+    },
     addItemToTheCart: function (products) {
       this.cart.push(products.id);
       console.log(this.cart);
@@ -136,27 +189,6 @@ var webstore = new Vue({
     //     this.products = [];
     // }
 
-    fetchLessons() {
-      fetch(`${this.serverBaseURL}/collections/products`, {
-        method: "GET",
-        credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Ensure the data is in the expected format
-          if (Array.isArray(data)) {
-            this.products = data; 
-            console.log("Fetched products:", data);
-          } else {
-            console.warn("Invalid data format from server:", data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching products:", error);
-          this.products = []; // Fallback to empty array in case of error
-        });
-    }
-    
     
   },
 
@@ -284,17 +316,5 @@ var webstore = new Vue({
     }
     
     
-  },
-  created() {
-    this.products = [];
-    this.fetchLessons();
-    console.log("Products:", this.products);
-console.log("Filtered Products:", this.filteredProducts);
-  },
-  watch: {
-    // Watch for changes to the 'products' array
-    products(newProducts) {
-      console.log("Updated Products:", newProducts);
-    },
   },
 });

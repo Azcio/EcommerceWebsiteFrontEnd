@@ -17,10 +17,8 @@ var webstore = new Vue({
     ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
     serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
   // serverBaseURL: "http://127.0.0.1:3000",
-    // filterCriteria: [],
-    // sortOrder: [],
-    filterCriteria: 'price',
-    sortOrder: 'ascending',
+    filterCriteria: [],
+    sortOrder: [],
     products: [],// The fetched products from MongoDB
   },
   created() {
@@ -53,27 +51,27 @@ console.log("Filtered Products:", this.filteredProducts);
     }
   },
   methods: {
-    //  async fetchLessons() {
-    //   try {
-    //     const response = await fetch(`${this.serverBaseURL}/collections/products`, {
-    //       method: "GET",
-    //       credentials: "include",
-    //     });
+     async fetchLessons() {
+      try {
+        const response = await fetch(`${this.serverBaseURL}/collections/products`, {
+          method: "GET",
+          credentials: "include",
+        });
 
-    //     const data = await response.json();
+        const data = await response.json();
 
-    //     if (Array.isArray(data)) {
-    //       this.products = data; // Assign fetched products to the data
-    //       console.log("Fetched products:", data);
-    //     } else {
-    //       console.warn("Invalid data format from server:", data);
-    //       this.products = []; // Set to empty array if response is invalid
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching products:", error);
-    //     this.products = []; // Fallback to empty array if error occurs
-    //   }
-    // },
+        if (Array.isArray(data)) {
+          this.products = data; // Assign fetched products to the data
+          console.log("Fetched products:", data);
+        } else {
+          console.warn("Invalid data format from server:", data);
+          this.products = []; // Set to empty array if response is invalid
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        this.products = []; // Fallback to empty array if error occurs
+      }
+    },
 
     showHome: function () {
       this.showHomePage = true;
@@ -97,27 +95,6 @@ console.log("Filtered Products:", this.filteredProducts);
         this.showCheckoutPage = false;
         this.showHomePage = false;
       }
-    },
-
-    fetchLessons() {
-      fetch(`${this.serverBaseURL}/collections/products`, {
-        method: "GET",
-        credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Ensure the data is in the expected format
-          if (Array.isArray(data)) {
-            this.products = data; 
-            console.log("Fetched products:", data);
-          } else {
-            console.warn("Invalid data format from server:", data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching products:", error);
-          this.products = []; // Fallback to empty array in case of error
-        });
     },
 
     addItemToTheCart: function (products) {

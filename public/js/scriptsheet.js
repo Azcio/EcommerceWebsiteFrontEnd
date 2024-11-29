@@ -147,69 +147,45 @@ var webstore = new Vue({
     },
 
     CheckoutItems: function () {
-      return this.products.filter((product) => this.cart.includes(product.id));
+      // return this.products.filter((product) => this.cart.includes(product.id));
+      return this.products.filter(product => this.cart.includes(product.id)) || [];
     },
   
     filteredProducts: function () {
       if (!Array.isArray(this.products)) {
-          console.warn('Products is not an array:', this.products);
-          return []; // Ensure filteredProducts always returns an array.
+        console.warn('Products is not an array or is undefined:', this.products);
+        return []; // Always return an array.
       }
-  
-      let sortedProducts = [...this.products]; // Create a copy of products.
-  
-      // Sort by price
+    
+      let sortedProducts = [...this.products];
+    
       if (this.filterCriteria.includes("price")) {
-          sortedProducts.sort((a, b) => {
-              if (this.sortOrder.includes("ascending")) {
-                  return a.price - b.price;
-              } else if (this.sortOrder.includes("descending")) {
-                  return b.price - a.price;
-              }
-              return 0;
-          });
+        sortedProducts.sort((a, b) => 
+          this.sortOrder.includes("ascending") 
+            ? a.price - b.price 
+            : b.price - a.price
+        );
+      } else if (this.filterCriteria.includes("availability")) {
+        sortedProducts.sort((a, b) => 
+          this.sortOrder.includes("ascending") 
+            ? this.itemsLeft(a) - this.itemsLeft(b) 
+            : this.itemsLeft(b) - this.itemsLeft(a)
+        );
+      } else if (this.filterCriteria.includes("subject")) {
+        sortedProducts.sort((a, b) => 
+          this.sortOrder.includes("ascending") 
+            ? a.title.localeCompare(b.title) 
+            : b.title.localeCompare(a.title)
+        );
+      } else if (this.filterCriteria.includes("location")) {
+        sortedProducts.sort((a, b) => 
+          this.sortOrder.includes("ascending") 
+            ? a.location.localeCompare(b.location) 
+            : b.location.localeCompare(a.location)
+        );
       }
-      // Sort by availability
-      else if (this.filterCriteria.includes("availability")) {
-          sortedProducts.sort((a, b) => {
-              const spacesLeftA = this.itemsLeft(a);
-              const spacesLeftB = this.itemsLeft(b);
-  
-              if (this.sortOrder.includes("ascending")) {
-                  return spacesLeftA - spacesLeftB;
-              } else if (this.sortOrder.includes("descending")) {
-                  return spacesLeftB - spacesLeftA;
-              }
-              return 0;
-          });
-      }
-      // Sort by subject alphabetically
-      else if (this.filterCriteria.includes("subject")) {
-          sortedProducts.sort((a, b) => {
-              if (this.sortOrder.includes("ascending")) {
-                  return a.title.localeCompare(b.title);
-              } else if (this.sortOrder.includes("descending")) {
-                  return b.title.localeCompare(a.title);
-              }
-              return 0;
-          });
-      }
-      // Sort by location alphabetically
-      else if (this.filterCriteria.includes("location")) {
-          sortedProducts.sort((a, b) => {
-              if (this.sortOrder.includes("ascending")) {
-                  return a.location.localeCompare(b.location);
-              } else if (this.sortOrder.includes("descending")) {
-                  return b.location.localeCompare(a.location);
-              }
-              return 0;
-          });
-      }
-  
-      // Default return if no specific filtering is applied
       return sortedProducts;
-  }
-  
+    }
 
     // filteredProducts: function () {
     //   if (!Array.isArray(this.products)) {

@@ -133,7 +133,7 @@
           </div>
 
           <div class="product-container">
-            <div v-for="product in filteredProducts">
+            <div v-if="filteredProducts.length" v-for="product in filteredProducts">
               <figure>
                 <img
                   class="Icon"

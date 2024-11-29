@@ -141,7 +141,7 @@ var webstore = new Vue({
     },
 
     fetchLessons() {
-      fetch('${this.serverBaseURL}/collections/products', {
+      fetch(`${this.serverBaseURL}/collections/products`, {
         method: 'GET',
         credentials: 'include',  // Include credentials (cookies)
       })

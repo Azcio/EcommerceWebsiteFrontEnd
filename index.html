@@ -137,7 +137,7 @@
               <figure>
                 <img
                   class="Icon"
-                  v-bind:src="`${imagesBaseURL}images/${product.Image}`" alt="product Image"
+                   v-if="product && product.Image" :src="product.Image" alt="Product Image">
                 />
                 <h2 v-text="products.title"></h2>
                 <p v-text="products.description"></p>

@@ -87,7 +87,7 @@ var webstore = new Vue({
 
       try {
         const response = await fetch(
-          `${serverBaseURL}/submit-order`,
+          `${this.serverBaseURL}/submit-order`,
           {
             method: "POST",
             headers: {
@@ -116,13 +116,14 @@ var webstore = new Vue({
     },
 
     fetchLessons() {
-      console.log("Fetching from:", `${serverBaseURL}/collections/products`);
+      console.log("Fetching from:", `${this.serverBaseURL}/collections/products`);
       fetch(`${serverBaseURL}/collections/products`, {
         method: 'GET',
         credentials: 'include',  // Include credentials (cookies)
       })
         .then(response => response.json())
         .then(data => {
+          console.log('Fetched products:', data);
           this.products = data; // Assign fetched data to the products array
         })
         .catch(error => console.error('Error:', error));

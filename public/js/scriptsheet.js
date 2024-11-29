@@ -115,26 +115,48 @@ var webstore = new Vue({
       }
     },
 
+    // fetchLessons() {
+    //   fetch(`${this.serverBaseURL}/collections/products`, {
+    //     method: 'GET',
+    //     credentials: 'include',  // Include credentials (cookies)
+    //   })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       console.log('Fetched products:', data);
+    //       if (Array.isArray(data)) {
+    //         this.products = data;
+    //       } else {
+    //         console.warn("Invalid data format from server:", data);
+    //         this.products = []; // Fallback to empty array
+    //       }
+    //     })
+    //     //   this.products = data; // Assign fetched data to the products array
+    //     // })
+    //     .catch(error => console.error('Error:', error));
+    //     this.products = [];
+    // }
+
     fetchLessons() {
       fetch(`${this.serverBaseURL}/collections/products`, {
-        method: 'GET',
-        credentials: 'include',  // Include credentials (cookies)
+        method: "GET",
+        credentials: "include",
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Fetched products:', data);
+        .then((response) => response.json())
+        .then((data) => {
+          // Ensure that the data is in the expected format
           if (Array.isArray(data)) {
-            this.products = data;
+            this.$set(this, 'products', data);  // Ensures reactivity in Vue 3
+            console.log("Fetched products:", data);
           } else {
             console.warn("Invalid data format from server:", data);
-            this.products = []; // Fallback to empty array
           }
         })
-        //   this.products = data; // Assign fetched data to the products array
-        // })
-        .catch(error => console.error('Error:', error));
-        this.products = [];
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+          this.products = []; // Fallback to empty array in case of error
+        });
     }
+    
   },
 
   computed: {

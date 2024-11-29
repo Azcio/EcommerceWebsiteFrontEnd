@@ -123,9 +123,17 @@ var webstore = new Vue({
         .then(response => response.json())
         .then(data => {
           console.log('Fetched products:', data);
-          this.products = data; // Assign fetched data to the products array
+          if (Array.isArray(data)) {
+            this.products = data;
+          } else {
+            console.warn("Invalid data format from server:", data);
+            this.products = []; // Fallback to empty array
+          }
         })
+        //   this.products = data; // Assign fetched data to the products array
+        // })
         .catch(error => console.error('Error:', error));
+        this.products = [];
     }
   },
 
@@ -153,7 +161,6 @@ var webstore = new Vue({
 
     filteredProducts: function () {
       if (!Array.isArray(this.products)) {
-        console.warn('Products is not an array:', this.products);
         return [];
       }
 
@@ -207,5 +214,7 @@ var webstore = new Vue({
   created() {
     this.products = [];
     this.fetchLessons();
+    console.log("Products:", this.products);
+console.log("Filtered Products:", this.filteredProducts);
   },
 });

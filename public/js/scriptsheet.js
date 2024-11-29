@@ -1,3 +1,5 @@
+const serverBaseURL = "https://ecommercewebsitebackend-119l.onrender.com";
+
 var webstore = new Vue({
   el: "#app",
   data: {
@@ -6,7 +8,7 @@ var webstore = new Vue({
     showHomePage: true,
     showProductPage: false,
     showCheckoutPage: false,
-    products: products,
+    // products: products,
     cart: [],
     order: {
       name: "",
@@ -18,9 +20,6 @@ var webstore = new Vue({
     filterCriteria: [],
     sortOrder: [],
     products: [],
-
-    imagesBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
-    serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
   },
   methods: {
     showHome: function () {
@@ -199,5 +198,5 @@ var webstore = new Vue({
   },
   created() {
     this.fetchLessons();
-  }
+  },
 });

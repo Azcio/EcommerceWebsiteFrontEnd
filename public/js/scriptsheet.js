@@ -17,8 +17,8 @@ var webstore = new Vue({
     ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
     serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
   // serverBaseURL: "http://127.0.0.1:3000",
-    filterCriteria: [],
-    sortOrder: [],
+    filterCriteria: 'price',
+    sortOrder: 'ascending',
     products: [],// The fetched products from MongoDB
   },
   created() {

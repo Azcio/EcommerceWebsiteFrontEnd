@@ -143,9 +143,9 @@ var webstore = new Vue({
       })
         .then((response) => response.json())
         .then((data) => {
-          // Ensure that the data is in the expected format
+          // Ensure the data is in the expected format
           if (Array.isArray(data)) {
-            this.$set(this, 'products', data);  // Ensures reactivity in Vue 3
+            this.products = data; 
             console.log("Fetched products:", data);
           } else {
             console.warn("Invalid data format from server:", data);
@@ -156,6 +156,7 @@ var webstore = new Vue({
           this.products = []; // Fallback to empty array in case of error
         });
     }
+    
     
   },
 
@@ -181,14 +182,67 @@ var webstore = new Vue({
       return this.products.filter(product => this.cart.includes(product.id)) || [];
     },
 
+    // filteredProducts: function () {
+    //   if (!Array.isArray(this.products)) {
+    //     return [];
+    //   }
+
+    //   let sortedProducts = [...this.products];
+
+    //   // Sort by selected
+    //   if (this.filterCriteria.includes("price")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder.includes("ascending")) {
+    //         return a.price - b.price;
+    //       } else if (this.sortOrder.includes("descending")) {
+    //         return b.price - a.price;
+    //       }
+    //       return 0;
+    //     });
+    //   } else if (this.filterCriteria.includes("availability")) {
+    //     sortedProducts.sort((a, b) => {
+    //       const spacesLeftA = this.itemsLeft(a);
+    //       const spacesLeftB = this.itemsLeft(b);
+
+    //       if (this.sortOrder.includes("ascending")) {
+    //         return spacesLeftA - spacesLeftB;
+    //       } else if (this.sortOrder.includes("descending")) {
+    //         return spacesLeftB - spacesLeftA;
+    //       }
+    //       return 0;
+    //     });
+
+    //     //function to sort subjects and location alphabetically
+    //   } else if (this.filterCriteria.includes("subject")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder === "ascending")
+    //         return a.title.localeCompare(b.title);
+    //       if (this.sortOrder === "descending")
+    //         return b.title.localeCompare(a.title);
+    //       return 0;
+    //     });
+    //   } else if (this.filterCriteria.includes("location")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder === "ascending")
+    //         return a.Location.localeCompare(b.Location);
+    //       if (this.sortOrder === "descending")
+    //         return b.Location.localeCompare(a.Location);
+    //       return 0;
+    //     });
+    //   }
+
+    //   return sortedProducts;
+    // },
+
     filteredProducts: function () {
-      if (!Array.isArray(this.products)) {
+      // If products array is empty or not yet populated, return empty array
+      if (!Array.isArray(this.products) || this.products.length === 0) {
         return [];
       }
-
+    
       let sortedProducts = [...this.products];
-
-      // Sort by selected
+    
+      // Apply filtering and sorting based on criteria
       if (this.filterCriteria.includes("price")) {
         sortedProducts.sort((a, b) => {
           if (this.sortOrder.includes("ascending")) {
@@ -202,7 +256,6 @@ var webstore = new Vue({
         sortedProducts.sort((a, b) => {
           const spacesLeftA = this.itemsLeft(a);
           const spacesLeftB = this.itemsLeft(b);
-
           if (this.sortOrder.includes("ascending")) {
             return spacesLeftA - spacesLeftB;
           } else if (this.sortOrder.includes("descending")) {
@@ -210,14 +263,10 @@ var webstore = new Vue({
           }
           return 0;
         });
-
-        //function to sort subjects and location alphabetically
       } else if (this.filterCriteria.includes("subject")) {
         sortedProducts.sort((a, b) => {
-          if (this.sortOrder === "ascending")
-            return a.title.localeCompare(b.title);
-          if (this.sortOrder === "descending")
-            return b.title.localeCompare(a.title);
+          if (this.sortOrder === "ascending") return a.title.localeCompare(b.title);
+          if (this.sortOrder === "descending") return b.title.localeCompare(a.title);
           return 0;
         });
       } else if (this.filterCriteria.includes("location")) {
@@ -229,14 +278,21 @@ var webstore = new Vue({
           return 0;
         });
       }
-
+    
       return sortedProducts;
-    },
+    }
+    
   },
   created() {
     this.products = [];
     this.fetchLessons();
     console.log("Products:", this.products);
 console.log("Filtered Products:", this.filteredProducts);
+  },
+  watch: {
+    // Watch for changes to the 'products' array
+    products(newProducts) {
+      console.log("Updated Products:", newProducts);
+    },
   },
 });

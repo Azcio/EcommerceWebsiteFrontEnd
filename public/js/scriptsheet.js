@@ -268,13 +268,13 @@ console.log("Filtered Products:", this.filteredProducts);
 
     filteredProducts: function () {
       // If products array is empty or not yet populated, return empty array
-      if (!Array.isArray(this.products) || this.products.length === 0) {
-        console.log("No products available for filtering.");
-        return [];
-      }
+      // if (!Array.isArray(this.products) || this.products.length === 0) {
+      //   console.log("No products available for filtering.");
+      //   return [];
+      // }
     
       let sortedProducts = [...this.products];
-    
+      console.log("sorted Products array test 1: " + this.sortedProducts);
       // Apply filtering and sorting based on criteria
       if (this.filterCriteria.includes("price")) {
         sortedProducts.sort((a, b) => {

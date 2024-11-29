@@ -237,6 +237,7 @@ var webstore = new Vue({
     filteredProducts: function () {
       // If products array is empty or not yet populated, return empty array
       if (!Array.isArray(this.products) || this.products.length === 0) {
+        console.log("No products available for filtering.");
         return [];
       }
     
@@ -281,6 +282,7 @@ var webstore = new Vue({
     
       return sortedProducts;
     }
+    
     
   },
   created() {

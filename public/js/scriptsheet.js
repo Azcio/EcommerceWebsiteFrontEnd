@@ -17,6 +17,8 @@ var webstore = new Vue({
     ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
     serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
   // serverBaseURL: "http://127.0.0.1:3000",
+    // filterCriteria: [],
+    // sortOrder: [],
     filterCriteria: 'price',
     sortOrder: 'ascending',
     products: [],// The fetched products from MongoDB
@@ -57,9 +59,9 @@ console.log("Filtered Products:", this.filteredProducts);
           method: "GET",
           credentials: "include",
         });
-  
+
         const data = await response.json();
-  
+
         if (Array.isArray(data)) {
           this.products = data; // Assign fetched products to the data
           console.log("Fetched products:", data);
@@ -117,7 +119,7 @@ console.log("Filtered Products:", this.filteredProducts);
     //       this.products = []; // Fallback to empty array in case of error
     //     });
     // },
-   
+
     addItemToTheCart: function (products) {
       this.cart.push(products.id);
       console.log(this.cart);
@@ -194,7 +196,7 @@ filteredProducts: function () {
       //   console.log("No products available for filtering.");
       //   return [];
       // }
-    
+
       let sortedProducts = [...this.products];
       // Apply filtering and sorting based on criteria
       if (this.filterCriteria.includes("price")) {

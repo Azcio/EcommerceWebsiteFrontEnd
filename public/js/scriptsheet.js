@@ -1,6 +1,8 @@
 var webstore = new Vue({
   el: "#app",
   data: {
+    // loading: true,  // New flag
+    products: [],
     sitename: "Creative Corner",
     showHomePage: true,
     showProductPage: false,
@@ -18,7 +20,6 @@ var webstore = new Vue({
   // serverBaseURL: "http://127.0.0.1:3000",
     filterCriteria: [],
     sortOrder: [],
-    products: [],// The fetched products from MongoDB
   },
   created() {
     this.fetchLessons();
@@ -52,6 +53,7 @@ console.log("Filtered Products:", this.filteredProducts);
   methods: {
      async fetchLessons() {
       try {
+        this.loading = true;  
         const response = await fetch(`${this.serverBaseURL}/collections/products`, {
           method: "GET",
           credentials: "include",
@@ -71,6 +73,19 @@ console.log("Filtered Products:", this.filteredProducts);
         this.products = []; // Fallback to empty array if error occurs
       }
     },
+
+    // async fetchLessons() {
+    //   try {
+    //     this.loading = true;  // Set to true before fetching
+    //     const response = await fetch(`${this.serverBaseURL}/collections/products`);
+    //     const data = await response.json();
+    //     this.products = data;
+    //   } catch (error) {
+    //     console.error("Error fetching products:", error);
+    //   } finally {
+    //     this.loading = false;  // Ensure false once fetch completes
+    //   }
+    // },
 
     showHome: function () {
       this.showHomePage = true;
@@ -167,11 +182,11 @@ console.log("Filtered Products:", this.filteredProducts);
 
   computed: {
 filteredProducts: function () {
-      // If products array is empty or not yet populated, return empty array
-      // if (!Array.isArray(this.products) || this.products.length === 0) {
-      //   console.log("No products available for filtering.");
-      //   return [];
-      // }
+      //If products array is empty or not yet populated, return empty array
+      if (!Array.isArray(this.products) || this.products.length === 0) {
+        console.log("No products available for filtering.");
+        return [];
+      }
 
       let sortedProducts = [...this.products];
       // Apply filtering and sorting based on criteria

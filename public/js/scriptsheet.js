@@ -231,40 +231,50 @@ console.log("Filtered Products:", this.filteredProducts);
 //     },
 
 filteredProducts: function () {
-  // If products array is empty or not yet populated, return empty array
-  if (!Array.isArray(this.products) || this.products.length === 0) {
-    console.log("No products available for filtering.");
-    return [];
-  }
-
   let sortedProducts = [...this.products];
 
-  // Apply filtering and sorting based on criteria
+  // Sort by selected
   if (this.filterCriteria.includes("price")) {
     sortedProducts.sort((a, b) => {
-      return this.sortOrder.includes("ascending") ? a.price - b.price : b.price - a.price;
+      if (this.sortOrder.includes("ascending")) {
+        return a.price - b.price;
+      } else if (this.sortOrder.includes("descending")) {
+        return b.price - a.price;
+      }
+      return 0;
     });
   } else if (this.filterCriteria.includes("availability")) {
     sortedProducts.sort((a, b) => {
       const spacesLeftA = this.itemsLeft(a);
       const spacesLeftB = this.itemsLeft(b);
-      return this.sortOrder.includes("ascending") ? spacesLeftA - spacesLeftB : spacesLeftB - spacesLeftA;
+
+      if (this.sortOrder.includes("ascending")) {
+        return spacesLeftA - spacesLeftB;
+      } else if (this.sortOrder.includes("descending")) {
+        return spacesLeftB - spacesLeftA;
+      }
+      return 0;
     });
+
+    //function to sort subjects and location alphabetically
   } else if (this.filterCriteria.includes("subject")) {
     sortedProducts.sort((a, b) => {
-      return this.sortOrder.includes("ascending")
-        ? a.title.localeCompare(b.title)
-        : b.title.localeCompare(a.title);
+      if (this.sortOrder === "ascending")
+        return a.title.localeCompare(b.title);
+      if (this.sortOrder === "descending")
+        return b.title.localeCompare(a.title);
+      return 0;
     });
   } else if (this.filterCriteria.includes("location")) {
     sortedProducts.sort((a, b) => {
-      return this.sortOrder.includes("ascending")
-        ? a.Location.localeCompare(b.Location)
-        : b.Location.localeCompare(a.Location);
+      if (this.sortOrder === "ascending")
+        return a.Location.localeCompare(b.Location);
+      if (this.sortOrder === "descending")
+        return b.Location.localeCompare(a.Location);
+      return 0;
     });
   }
 
-  console.log("Sorted Products:", sortedProducts);
   return sortedProducts;
 },
 

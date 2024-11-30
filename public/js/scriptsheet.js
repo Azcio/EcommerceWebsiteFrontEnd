@@ -26,29 +26,29 @@ var webstore = new Vue({
 console.log("Filtered Products:", this.filteredProducts);
   },
 
-  // watch: {
-  //   // Watch for changes to the 'products' array
-  //   products(newProducts) {
-  //     console.log("Updated Products:", newProducts);
-  //   },
+  watch: {
+    // Watch for changes to the 'products' array
+    products(newProducts) {
+      console.log("Updated Products:", newProducts);
+    },
 
-  //    // Watch for changes to filterCriteria and sortOrder and log sorted results
-  //    filterCriteria(newFilter) {
-  //     console.log("Filter Criteria Updated:", newFilter);
-  //     console.log("Sorted Products after Filter Change:", this.filteredProducts);
-  //   },
+     // Watch for changes to filterCriteria and sortOrder and log sorted results
+     filterCriteria(newFilter) {
+      console.log("Filter Criteria Updated:", newFilter);
+      console.log("Sorted Products after Filter Change:", this.filteredProducts);
+    },
 
-  //   sortOrder(newSortOrder) {
-  //     console.log("Sort Order Updated:", newSortOrder);
-  //     console.log("Sorted Products after Sort Order Change:", this.filteredProducts);
-  //   },
+    sortOrder(newSortOrder) {
+      console.log("Sort Order Updated:", newSortOrder);
+      console.log("Sorted Products after Sort Order Change:", this.filteredProducts);
+    },
 
-  //   // Optionally, you can also watch for changes to the filteredProducts directly
-  //   filteredProducts(newFilteredProducts) {
-  //     console.log("Filtered Products Updated:", newFilteredProducts);
-  //     // You can perform additional side effects here if necessary
-  //   }
-  // },
+    // Optionally, you can also watch for changes to the filteredProducts directly
+    filteredProducts(newFilteredProducts) {
+      console.log("Filtered Products Updated:", newFilteredProducts);
+      // You can perform additional side effects here if necessary
+    }
+  },
   methods: {
      async fetchLessons() {
       try {
@@ -168,6 +168,10 @@ console.log("Filtered Products:", this.filteredProducts);
 
     filteredProducts: function () {
       let sortedProducts = [...this.products];
+      console.log("Cloned Products:", sortedProducts);
+
+      if (!Array.isArray(sortedProducts) || sortedProducts.length === 0) {
+        return []; }
 
       // Sort by selected
       if (this.filterCriteria.includes("price")) {
@@ -232,8 +236,10 @@ console.log("Filtered Products:", this.filteredProducts);
     },
 
     CheckoutItems: function () {
-      // return this.products.filter((product) => this.cart.includes(product.id));
-      return this.products.filter(product => this.cart.includes(product.id)) || [];
+      if (!Array.isArray(this.products) || !Array.isArray(this.cart)) {
+        return [];  // Ensure both products and cart are valid arrays before filtering
+      }
+      return this.products.filter((product) => this.cart.includes(product.id));
     },
   },
 });

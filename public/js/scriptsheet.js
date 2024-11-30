@@ -135,7 +135,7 @@ console.log("Filtered Products:", this.filteredProducts);
 
       try {
         const response = await fetch(
-          `${this.serverBaseURL}/submit-order`,
+          `${this.serverBaseURL}/collections/orderInfo`,
           {
             method: "POST",
             headers: {

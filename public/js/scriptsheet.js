@@ -17,13 +17,13 @@ var webstore = new Vue({
     ImageURL: "https://ecommercewebsitebackend-119l.onrender.com",
     serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
   // serverBaseURL: "http://127.0.0.1:3000",
-    // filterCriteria: [],
-    // sortOrder: [],
+    filterCriteria: [],
+    sortOrder: [],
   },
   created() {
     this.fetchLessons();
     console.log("Products:", this.products);
-// console.log("Filtered Products:", this.filteredProducts);
+console.log("Filtered Products:", this.filteredProducts);
   },
 
   watch: {
@@ -33,21 +33,21 @@ var webstore = new Vue({
     },
 
      // Watch for changes to filterCriteria and sortOrder and log sorted results
-    //  filterCriteria(newFilter) {
-    //   console.log("Filter Criteria Updated:", newFilter);
-    //   console.log("Sorted Products after Filter Change:", this.filteredProducts);
-    // },
+     filterCriteria(newFilter) {
+      console.log("Filter Criteria Updated:", newFilter);
+      console.log("Sorted Products after Filter Change:", this.filteredProducts);
+    },
 
-    // sortOrder(newSortOrder) {
-    //   console.log("Sort Order Updated:", newSortOrder);
-    //   console.log("Sorted Products after Sort Order Change:", this.filteredProducts);
-    // },
+    sortOrder(newSortOrder) {
+      console.log("Sort Order Updated:", newSortOrder);
+      console.log("Sorted Products after Sort Order Change:", this.filteredProducts);
+    },
 
-    // // Optionally, you can also watch for changes to the filteredProducts directly
-    // filteredProducts(newFilteredProducts) {
-    //   console.log("Filtered Products Updated:", newFilteredProducts);
-    //   // You can perform additional side effects here if necessary
-    // }
+    // Optionally, you can also watch for changes to the filteredProducts directly
+    filteredProducts(newFilteredProducts) {
+      console.log("Filtered Products Updated:", newFilteredProducts);
+      // You can perform additional side effects here if necessary
+    }
   },
   methods: {
      async fetchLessons() {
@@ -166,57 +166,57 @@ var webstore = new Vue({
 
   computed: {
 
-    // filteredProducts: function () {
-    //   let sortedProducts = [...this.products];
-    //   console.log("Cloned Products:", sortedProducts);
+    filteredProducts: function () {
+      let sortedProducts = [...this.products];
+      console.log("Cloned Products:", sortedProducts);
 
-    //   if (!Array.isArray(sortedProducts) || sortedProducts.length === 0) {
-    //     return []; }
+      if (!Array.isArray(sortedProducts) || sortedProducts.length === 0) {
+        return []; }
 
-    //   // Sort by selected
-    //   if (this.filterCriteria.includes("price")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder.includes("ascending")) {
-    //         return a.price - b.price;
-    //       } else if (this.sortOrder.includes("descending")) {
-    //         return b.price - a.price;
-    //       }
-    //       return 0;
-    //     });
-    //   } else if (this.filterCriteria.includes("availability")) {
-    //     sortedProducts.sort((a, b) => {
-    //       const spacesLeftA = this.itemsLeft(a);
-    //       const spacesLeftB = this.itemsLeft(b);
+      // Sort by selected
+      if (this.filterCriteria.includes("price")) {
+        sortedProducts.sort((a, b) => {
+          if (this.sortOrder.includes("ascending")) {
+            return a.price - b.price;
+          } else if (this.sortOrder.includes("descending")) {
+            return b.price - a.price;
+          }
+          return 0;
+        });
+      } else if (this.filterCriteria.includes("availability")) {
+        sortedProducts.sort((a, b) => {
+          const spacesLeftA = this.itemsLeft(a);
+          const spacesLeftB = this.itemsLeft(b);
 
-    //       if (this.sortOrder.includes("ascending")) {
-    //         return spacesLeftA - spacesLeftB;
-    //       } else if (this.sortOrder.includes("descending")) {
-    //         return spacesLeftB - spacesLeftA;
-    //       }
-    //       return 0;
-    //     });
+          if (this.sortOrder.includes("ascending")) {
+            return spacesLeftA - spacesLeftB;
+          } else if (this.sortOrder.includes("descending")) {
+            return spacesLeftB - spacesLeftA;
+          }
+          return 0;
+        });
 
-    //     //function to sort subjects and location alphabetically
-    //   } else if (this.filterCriteria.includes("subject")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder === "ascending")
-    //         return a.title.localeCompare(b.title);
-    //       if (this.sortOrder === "descending")
-    //         return b.title.localeCompare(a.title);
-    //       return 0;
-    //     });
-    //   } else if (this.filterCriteria.includes("location")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder === "ascending")
-    //         return a.Location.localeCompare(b.Location);
-    //       if (this.sortOrder === "descending")
-    //         return b.Location.localeCompare(a.Location);
-    //       return 0;
-    //     });
-    //   }
+        //function to sort subjects and location alphabetically
+      } else if (this.filterCriteria.includes("subject")) {
+        sortedProducts.sort((a, b) => {
+          if (this.sortOrder === "ascending")
+            return a.title.localeCompare(b.title);
+          if (this.sortOrder === "descending")
+            return b.title.localeCompare(a.title);
+          return 0;
+        });
+      } else if (this.filterCriteria.includes("location")) {
+        sortedProducts.sort((a, b) => {
+          if (this.sortOrder === "ascending")
+            return a.Location.localeCompare(b.location);
+          if (this.sortOrder === "descending")
+            return b.Location.localeCompare(a.location);
+          return 0;
+        });
+      }
 
-    //   return sortedProducts;
-    // },
+      return sortedProducts;
+    },
  
 
     basket: function () {

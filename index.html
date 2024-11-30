@@ -95,7 +95,7 @@
         </div>
 
         <div class="classHolder" v-if="showProductPage">
-          <!-- <div class="filterContainer">
+          <div class="filterContainer">
             <h3>filter</h3>
 
             <div class="FilterOptions">
@@ -131,14 +131,14 @@
                 Descending
               </label>
             </div>
-          </div> -->
+          </div>
 
           <div class="product-container">
-            <div v-for="product in products">
+            <div v-for="product in filteredProducts">
               <figure>
                 <img
                   class="Icon"
-                  v-bind:src="`${ImageURL}${product.Image}`"
+                  v-bind:src="`${ImageURL}${product.image}`"
                    alt="product Image" 
                 />
                 <h2 v-text="product.title"></h2>
@@ -161,8 +161,8 @@
                 <span v-else>Buy Now!</span>
 
                 <div id="ratings">
-                  <span v-for="n in product.Rating">★</span>
-                  <span v-for="n in 5 - product.Rating">☆</span>
+                  <span v-for="n in product.rating">★</span>
+                  <span v-for="n in 5 - product.rating">☆</span>
                 </div>
               </figure>
             </div>
@@ -215,13 +215,13 @@
               <figure class="checkoutProducts">
                 <img
                   class="CheckoutIcon"
-                  v-bind:src="product.Image"
+                  v-bind:src="product.image"
                   alt="product Image"
                 />
                 <h2 v-text="product.title"></h2>
                 <p v-text="product.description"></p>
                 <p>Price: {{ product.price }}</p>
-                <p>Location: {{ product.Location }}</p>
+                <p>Location: {{ product.location }}</p>
                 <p>Quantity: {{ cartCount(product.id) }}</p>
 
                 <button

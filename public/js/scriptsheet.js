@@ -14,7 +14,7 @@ var webstore = new Vue({
       zip: "",
       number: "",
     },
-    ImageURL: "https://ecommercewebsitebackend-119l.onrender.com/",
+    ImageURL: "https://ecommercewebsitebackend-119l.onrender.com",
     serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
   // serverBaseURL: "http://127.0.0.1:3000",
     filterCriteria: [],

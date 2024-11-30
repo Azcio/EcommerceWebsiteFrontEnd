@@ -16,11 +16,11 @@
   <body>
     <div id="app">
       <header>
-        <!-- v-bind:src="https://ecommercewebsitebackend-119l.onrender.com/images/WebLogo.png" -->
+
         <img
           class="logo"
           v-on:click="showHome"
-
+        v-bind:src="ImageURL/images/WebLogo.png"
           alt="WebLogo"
         />
         <h1 v-text="sitename"></h1>
@@ -28,7 +28,8 @@
         <img
           class="productIcon"
           v-on:click="showProduct"
-          src="https://ecommercewebsitebackend-119l.onrender.com/images/productIcon.png"
+          src="ImageURL/images/productIcon.png"
+
         />
         <button class="productList" v-on:click="showProduct">
           Show Classes

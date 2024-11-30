@@ -242,7 +242,7 @@
             </button>
           </div>
 
-          <div class="cartItems">
+          <!-- <div class="cartItems">
             <div v-for="product in CheckoutItems">
               <figure class="checkoutProducts">
                 <img
@@ -264,7 +264,29 @@
                 </button>
               </figure>
             </div>
+          </div> -->
+
+          <div v-if="Array.isArray(CheckoutItems) && CheckoutItems.length > 0">
+            <div v-for="product in CheckoutItems" :key="product.id">
+              <figure class="checkoutProducts">
+                <img class="CheckoutIcon" v-bind:src="product.Image" alt="product Image" />
+                <h2 v-text="product.title"></h2>
+                <p v-text="product.description"></p>
+                <p>Price: {{ product.price }}</p>
+                <p>Location: {{ product.Location }}</p>
+                <p>Quantity: {{ cartCount(product.id) }}</p>
+          
+                <button class="removeButton" v-on:click="removeItemFromCart(product.id)">
+                  Remove
+                </button>
+              </figure>
+            </div>
           </div>
+          <div v-else>
+            <p>Your cart is empty.</p>
+          </div>
+          
+
         </div>
       </main>
     </div>

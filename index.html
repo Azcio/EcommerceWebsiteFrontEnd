@@ -133,7 +133,7 @@
             </div>
           </div>
 
-          <div class="product-container">
+          <!-- <div class="product-container">
             <div v-for="product in products">
               <figure>
                 <img
@@ -166,7 +166,40 @@
                 </div>
               </figure>
             </div>
+          </div> -->
+          <div class="product-container">
+            <!-- Check that products is an array -->
+            <div v-if="Array.isArray(products) && products.length > 0">
+              <div v-for="product in products" :key="product.id">
+                <img class="Icon" v-bind:src="`${ImageURL}${product.Image}`" alt="product Image" />
+                <h2 v-text="product.title"></h2>
+                <p v-text="product.description"></p>
+                <p>Price: {{product.price}}</p>
+                <p>Location: {{product.location}}</p>
+          
+                <input
+                  type="button"
+                  value="add to cart"
+                  v-on:click="addItemToTheCart(product)"
+                  v-if="CanBeAddedToCart(product)"
+                />
+          
+                <button v-else disabled>add to cart</button>
+                <span v-if="itemsLeft(product) === 0">All Out!</span>
+                <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span>
+                <span v-else>Buy Now!</span>
+          
+                <div id="ratings">
+                  <span v-for="n in product.Rating" :key="n">★</span>
+                  <span v-for="n in 5 - product.Rating" :key="n">☆</span>
+                </div>
+              </figure>
+            </div>
+            <div v-else>
+              <p>No products available.</p>
+            </div>
           </div>
+          
         </div>
 
         <div class="checkoutPage" v-if="showCheckoutPage">

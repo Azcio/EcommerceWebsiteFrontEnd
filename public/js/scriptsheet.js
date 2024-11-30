@@ -166,12 +166,59 @@ console.log("Filtered Products:", this.filteredProducts);
 
   computed: {
 
+    // filteredProducts: function () {
+    //   let sortedProducts = [...this.products];
+    //   console.log("Cloned Products:", sortedProducts);
+
+    //   if (!Array.isArray(sortedProducts) || sortedProducts.length === 0) {
+    //     return []; }
+
+    //   // Sort by selected
+    //   if (this.filterCriteria.includes("price")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder.includes("ascending")) {
+    //         return a.price - b.price;
+    //       } else if (this.sortOrder.includes("descending")) {
+    //         return b.price - a.price;
+    //       }
+    //       return 0;
+    //     });
+    //   } else if (this.filterCriteria.includes("availability")) {
+    //     sortedProducts.sort((a, b) => {
+    //       const spacesLeftA = this.itemsLeft(a);
+    //       const spacesLeftB = this.itemsLeft(b);
+
+    //       if (this.sortOrder.includes("ascending")) {
+    //         return spacesLeftA - spacesLeftB;
+    //       } else if (this.sortOrder.includes("descending")) {
+    //         return spacesLeftB - spacesLeftA;
+    //       }
+    //       return 0;
+    //     });
+
+    //     //function to sort subjects and location alphabetically
+    //   } else if (this.filterCriteria.includes("subject")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder === "ascending")
+    //         return a.title.localeCompare(b.title);
+    //       if (this.sortOrder === "descending")
+    //         return b.title.localeCompare(a.title);
+    //       return 0;
+    //     });
+    //   } else if (this.filterCriteria.includes("location")) {
+    //     sortedProducts.sort((a, b) => {
+    //       if (this.sortOrder === "ascending")
+    //         return a.Location.localeCompare(b.location);
+    //       if (this.sortOrder === "descending")
+    //         return b.Location.localeCompare(a.location);
+    //       return 0;
+    //     });
+    //   }
+
+    //   return sortedProducts;
+    // },
     filteredProducts: function () {
       let sortedProducts = [...this.products];
-      console.log("Cloned Products:", sortedProducts);
-
-      if (!Array.isArray(sortedProducts) || sortedProducts.length === 0) {
-        return []; }
 
       // Sort by selected
       if (this.filterCriteria.includes("price")) {
@@ -207,17 +254,16 @@ console.log("Filtered Products:", this.filteredProducts);
         });
       } else if (this.filterCriteria.includes("location")) {
         sortedProducts.sort((a, b) => {
-          if (this.sortOrder === "ascending")
-            return a.Location.localeCompare(b.location);
-          if (this.sortOrder === "descending")
-            return b.Location.localeCompare(a.location);
-          return 0;
+          if (a.location && b.location) {
+            return this.sortOrder === "ascending"
+              ? a.location.localeCompare(b.location)
+              : b.location.localeCompare(a.location);
+          }
         });
       }
 
       return sortedProducts;
     },
- 
 
     basket: function () {
       return this.cart.length || "";

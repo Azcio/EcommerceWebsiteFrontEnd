@@ -70,18 +70,6 @@ console.log("Filtered Products:", this.filteredProducts);
       console.log("Check if the Products are in after fetch:", this.products);
     },
 
-    // async fetchLessons() {
-    //   try {
-    //     this.loading = true;  // Set to true before fetching
-    //     const response = await fetch(`${this.serverBaseURL}/collections/products`);
-    //     const data = await response.json();
-    //     this.products = data;
-    //   } catch (error) {
-    //     console.error("Error fetching products:", error);
-    //   } finally {
-    //     this.loading = false;  // Ensure false once fetch completes
-    //   }
-    // },
 
     showHome: function () {
       this.showHomePage = true;

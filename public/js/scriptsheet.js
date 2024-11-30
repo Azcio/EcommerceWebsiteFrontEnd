@@ -2,7 +2,6 @@ var webstore = new Vue({
   el: "#app",
   data: {
     sitename: "Creative Corner",
-    siteLogo: "images/WebLogo.png",
     showHomePage: true,
     showProductPage: false,
     showCheckoutPage: false,

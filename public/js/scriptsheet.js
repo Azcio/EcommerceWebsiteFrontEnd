@@ -1,7 +1,6 @@
 var webstore = new Vue({
   el: "#app",
   data: {
-    // loading: true,  // New flag
     products: [],
     sitename: "Creative Corner",
     showHomePage: true,
@@ -64,9 +63,6 @@ console.log("Filtered Products:", this.filteredProducts);
         if (Array.isArray(data)) {
           this.products = data; // Assign fetched products to the data
           console.log("Fetched products:", data);
-        } else {
-          console.warn("Invalid data format from server:", data);
-          this.products = []; // Set to empty array if response is invalid
         }
       } catch (error) {
         console.error("Error fetching products:", error);

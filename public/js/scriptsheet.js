@@ -6,7 +6,6 @@ var webstore = new Vue({
     showHomePage: true,
     showProductPage: false,
     showCheckoutPage: false,
-    // products: products,
     cart: [],
     order: {
       name: "",
@@ -14,9 +13,7 @@ var webstore = new Vue({
       zip: "",
       number: "",
     },
-    ImageURL: "https://ecommercewebsitebackend-119l.onrender.com",
     serverBaseURL: "https://ecommercewebsitebackend-119l.onrender.com",
-  // serverBaseURL: "http://127.0.0.1:3000",
     filterCriteria: [],
     sortOrder: [],
   },
@@ -27,7 +24,7 @@ console.log("Filtered Products:", this.filteredProducts);
   },
 
   watch: {
-    // Watch for changes to the 'products' array
+    // Watch for changes to the products array (should fetch all 17 products data)
     products(newProducts) {
       console.log("Updated Products:", newProducts);
     },
@@ -43,10 +40,9 @@ console.log("Filtered Products:", this.filteredProducts);
       console.log("Sorted Products after Sort Order Change:", this.filteredProducts);
     },
 
-    // Optionally, you can also watch for changes to the filteredProducts directly
+    // watch any new changes to filter Products, e.g, will update if user changes filter and sorting order
     filteredProducts(newFilteredProducts) {
       console.log("Filtered Products Updated:", newFilteredProducts);
-      // You can perform additional side effects here if necessary
     }
   },
   methods: {
@@ -60,12 +56,12 @@ console.log("Filtered Products:", this.filteredProducts);
         const data = await response.json();
 
         if (Array.isArray(data)) {
-          this.products = data; // Assign fetched products to the data
+          this.products = data; // Assign to fetched products to the data
           console.log("Fetched products:", data);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
-        this.products = []; // Fallback to empty array if error occurs
+        this.products = []; // Fallback to empty products array if error occurs
       }
       console.log("Check if the Products are in after fetch:", this.products);
     },
@@ -165,58 +161,6 @@ console.log("Filtered Products:", this.filteredProducts);
   },
 
   computed: {
-
-    // filteredProducts: function () {
-    //   let sortedProducts = [...this.products];
-    //   console.log("Cloned Products:", sortedProducts);
-
-    //   if (!Array.isArray(sortedProducts) || sortedProducts.length === 0) {
-    //     return []; }
-
-    //   // Sort by selected
-    //   if (this.filterCriteria.includes("price")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder.includes("ascending")) {
-    //         return a.price - b.price;
-    //       } else if (this.sortOrder.includes("descending")) {
-    //         return b.price - a.price;
-    //       }
-    //       return 0;
-    //     });
-    //   } else if (this.filterCriteria.includes("availability")) {
-    //     sortedProducts.sort((a, b) => {
-    //       const spacesLeftA = this.itemsLeft(a);
-    //       const spacesLeftB = this.itemsLeft(b);
-
-    //       if (this.sortOrder.includes("ascending")) {
-    //         return spacesLeftA - spacesLeftB;
-    //       } else if (this.sortOrder.includes("descending")) {
-    //         return spacesLeftB - spacesLeftA;
-    //       }
-    //       return 0;
-    //     });
-
-    //     //function to sort subjects and location alphabetically
-    //   } else if (this.filterCriteria.includes("subject")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder === "ascending")
-    //         return a.title.localeCompare(b.title);
-    //       if (this.sortOrder === "descending")
-    //         return b.title.localeCompare(a.title);
-    //       return 0;
-    //     });
-    //   } else if (this.filterCriteria.includes("location")) {
-    //     sortedProducts.sort((a, b) => {
-    //       if (this.sortOrder === "ascending")
-    //         return a.Location.localeCompare(b.location);
-    //       if (this.sortOrder === "descending")
-    //         return b.Location.localeCompare(a.location);
-    //       return 0;
-    //     });
-    //   }
-
-    //   return sortedProducts;
-    // },
     filteredProducts: function () {
       let sortedProducts = [...this.products];
 
@@ -283,7 +227,7 @@ console.log("Filtered Products:", this.filteredProducts);
 
     CheckoutItems: function () {
       if (!Array.isArray(this.products) || !Array.isArray(this.cart)) {
-        return [];  // Ensure both products and cart are valid arrays before filtering
+        return [];  
       }
       return this.products.filter((product) => this.cart.includes(product.id));
     },
